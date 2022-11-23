@@ -1,0 +1,21 @@
+.Navbar {
+  background-color: rgb(93, 93, 180);
+  min-height: 4.2rem;
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}
+.Icon {
+  height: 3.2rem;
+}
+h3 {
+  color: rgb(198, 198, 198);
+}
+h4 {
+  margin-left: -18px;
+  margin-top: -10px;
+  color: #ffebad;
+}
