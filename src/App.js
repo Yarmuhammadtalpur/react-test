@@ -1,12 +1,10 @@
 import "./App.css";
 import {
-  Box,
   Button,
   Container,
   Dialog,
   DialogActions,
   DialogContent,
-  Grid,
   ImageList,
   ImageListItem,
   TextField,
@@ -16,13 +14,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDogs } from "./DogState";
-import axios from "axios";
+import { getBreeds } from "./BreedState";
 
 //
 function App() {
   const dispatch = useDispatch();
   const DogsBreeds = useSelector((state) => state.Dog.dogName);
-  const [ApidataBreed, setApidataBreed] = useState("");
+  const BreedsList = useSelector((state) => state.Breed.BreedNames);
 
   const [dog, setdog] = useState("");
   const [breeds, setbreeds] = useState("");
@@ -40,23 +38,14 @@ function App() {
     dispatch(getDogs());
     console.log(DogsBreeds, "effect");
   }, [dispatch]);
-  const test = Object.keys(DogsBreeds).length !== 0;
-
-  console.log(DogsBreeds, test);
 
   useEffect(() => {
-    console.log(param);
-    axios.get(`https://dog.ceo/api/breed/${param}images`).then(
-      (response) => {
-        setApidataBreed(response.data.message);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }, [param]);
+    if (param) {
+      dispatch(getBreeds(param));
+    }
+  }, [dispatch, param]);
 
-  console.log(ApidataBreed, "ApidataBreed");
+  console.log(BreedsList, "BreedsList");
 
   const handleChange = (event) => {
     setdog(event.target.value);
@@ -76,7 +65,7 @@ function App() {
 
           <div className="App-Input">
             <TextField
-              id="outlined-select-currency-native"
+              id="outlined-select-currency"
               select
               value={dog}
               onChange={handleChange}
@@ -120,9 +109,21 @@ function App() {
           </div>
 
           <div>
-            <Button variant="contained" onClick={handleClickOpen}>
-              Show
-            </Button>
+            <div className="Button-group">
+              <Button variant="contained" onClick={handleClickOpen}>
+                Show
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setdog("");
+                  setbreeds("");
+                }}
+                color="success"
+              >
+                Clear
+              </Button>
+            </div>
             <Dialog open={open} onClose={handleClose}>
               <DialogContent>
                 {!dog ? (
@@ -134,14 +135,15 @@ function App() {
                       cols={3}
                       rowHeight={164}
                     >
-                      {ApidataBreed &&
-                        ApidataBreed.map((item) => (
-                          <ImageListItem key={item.img}>
+                      {BreedsList.length > 0 &&
+                        Object.entries(BreedsList).map((item, i) => (
+                          <ImageListItem key={item[0]}>
                             <img
-                              src={item}
-                              srcSet={item}
+                              src={item[1]}
+                              srcSet={item[1]}
                               alt="dog"
                               loading="lazy"
+                              key={item[0]}
                             />
                           </ImageListItem>
                         ))}

@@ -5,9 +5,12 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import DogReducer from "./DogState";
+import BreedReducer from "./BreedState";
+
 const store = configureStore({
   reducer: {
     Dog: DogReducer,
+    Breed: BreedReducer,
   },
 });
 

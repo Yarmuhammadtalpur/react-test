@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: row;
   padding: 20px;
-  margin-top: 50px;
+  margin-top: 15px;
   text-align: center;
   font-family: "Nunito", sans-serif;
 }
@@ -19,4 +19,12 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 50px;
+}
+.Button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  gap: 20px;
 }
